@@ -1,21 +1,24 @@
-/**
- * Given matrix, a rectangular matrix of integers,
- * just add up all the values that don't appear below a "0".
- *
- * @param {Array<Array>} matrix
- * @return {Number}
- *
- * @example
- * matrix = [
- *  [0, 1, 1, 2],
- *  [0, 5, 0, 0],
- *  [2, 0, 3, 3]
- * ]
- *
- * The result should be 9
- */
-function getMatrixElementsSum(/* matrix */) {
-  throw new Error('Not implemented');
+function getMatrixElementsSum(matrix) {
+  let summa = 0;
+  let count = 0;
+  for (let i = 1; i < matrix.length; i++) {
+    for (let j = 0; j < matrix[i].length; j++) {
+      if (matrix[i][j] === 0) {
+        for (let n = 1; n <= i; n++) {
+          summa += matrix[i - n][j];
+        }
+        count++;
+      }
+    }
+  }
+  if (count === 0) {
+    for (let i = 0; i < matrix.length; i++) {
+      for (let j = 0; j < matrix[i].length; j++) {
+        summa += matrix[i][j];
+      }
+    }
+  }
+  return summa;
 }
 
 module.exports = getMatrixElementsSum;
