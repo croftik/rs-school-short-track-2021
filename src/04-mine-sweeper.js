@@ -1,28 +1,26 @@
-/**
- * In the popular Minesweeper game you have a board with some mines and those cells
- * that don't contain a mine have a number in it that indicates the total number of mines
- * in the neighboring cells. Starting off with some arrangement of mines
- * we want to create a Minesweeper game setup.
- *
- * @param {Array<Array>} matrix
- * @return {Array<Array>}
- *
- * @example
- * matrix = [
- *  [true, false, false],
- *  [false, true, false],
- *  [false, false, false]
- * ]
- *
- * The result should be following:
- * [
- *  [1, 2, 1],
- *  [2, 1, 1],
- *  [1, 1, 1]
- * ]
- */
-function minesweeper(/* matrix */) {
-  throw new Error('Not implemented');
+function minesweeper(matrix) {
+  const tempArray = [];
+  const result = [];
+  let temp1 = 0;
+  let temp2 = 0;
+  for (let i = 0; i < matrix.length; i++) {
+    for (let j = 0; j < matrix[i].length; j++) {
+      let count = 0;
+      for (let row = -1; row <= 1; row++) {
+        for (let column = -1; column <= 1; column++) {
+          temp1 = row + i;
+          temp2 = column + j;
+          if (temp1 !== i || temp2 !== j) {
+            if (temp1 >= 0 && temp1 < matrix.length
+            && temp2 >= 0 && temp2 < matrix.length) count += matrix[temp1][temp2] ? 1 : 0;
+          }
+        }
+      }
+      tempArray.push(count);
+    }
+  }
+  for (let i = 0; i < tempArray.length; i += 3) result.push(tempArray.slice(i, i + 3));
+  return result;
 }
 
 module.exports = minesweeper;
