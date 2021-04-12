@@ -1,27 +1,20 @@
-/**
- * Given an array of domains, return the object with the appearances of the DNS.
- *
- * @param {Array} domains
- * @return {Object}
- *
- * @example
- * domains = [
- *  'code.yandex.ru',
- *  'music.yandex.ru',
- *  'yandex.ru'
- * ]
- *
- * The result should be the following:
- * {
- *   '.ru': 3,
- *   '.ru.yandex': 3,
- *   '.ru.yandex.code': 1,
- *   '.ru.yandex.music': 1,
- * }
- *
- */
-function getDNSStats(/* domains */) {
-  throw new Error('Not implemented');
+function getDNSStats(domains) {
+  if (domains.length === 0) return {};
+  const result = {};
+  const temp = domains[0].split('.');
+  const topLevelDomain = temp[temp.length - 1];
+  let countTopLevelDomain = 0;
+  const original = domains.slice();
+  for (let i = 0; i < domains.length; i++) {
+    let count = 0;
+    for (let j = 0; j < original.length; j++) {
+      if (original[j].includes(domains[i])) count++;
+    }
+    if (domains[i].includes(topLevelDomain)) countTopLevelDomain++;
+    result[`.${domains[i].split('.').reverse().join('.')}`] = count;
+  }
+  result[`.${topLevelDomain}`] = countTopLevelDomain;
+  return result;
 }
 
 module.exports = getDNSStats;
